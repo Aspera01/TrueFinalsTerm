@@ -10,9 +10,9 @@
 
     <Grid  >
 
-        <StackPanel x:Name="login" Visibility="Collapsed">
+        <StackPanel x:Name="login" Visibility="Visible">
             <StackPanel.Background>
-                <ImageBrush ImageSource="C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\Login.png"/>
+                <ImageBrush ImageSource="C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\Login.png"/>
             </StackPanel.Background>
 
             <TextBox x:Name ="user_box" Margin="0 210 20 0" BorderBrush="Transparent" Background="Transparent" Width="190" Height="23" BorderThickness="0"  />
@@ -28,9 +28,9 @@
             </Button>
         </StackPanel>
 
-        <Grid x:Name="listedItems" Visibility="Visible">
+        <Grid x:Name="listedItems" Visibility="Collapsed">
             <Grid.Background>
-                <ImageBrush ImageSource="C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\Shopping.png"/>
+                <ImageBrush ImageSource="C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\Shopping.png"/>
             </Grid.Background>
 
             <StackPanel Margin="0 85 102 0" Width="670" Height="320" >
@@ -117,7 +117,7 @@
 
         <StackPanel x:Name="SellingItems" Visibility="Collapsed" Orientation="Horizontal" >
             <StackPanel.Background>
-                <ImageBrush ImageSource="C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\Selling.png"/>
+                <ImageBrush ImageSource="C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\Selling.png"/>
             </StackPanel.Background>
 
             <StackPanel Margin="20 81 0 0" Orientation="Vertical" Width="240" Height="315"  >

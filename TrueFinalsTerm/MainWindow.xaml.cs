@@ -24,25 +24,26 @@ namespace TrueFinalsTerm
     /// </summary>
     public partial class MainWindow : Window
     {
-        //DataClasses1DataContext _dbConn = null;
+        DataClasses1DataContext _dbConn = null;
         bool flag = false;
+        bool mode = false; //false = user | true = moderator
 
         private readonly ObservableCollection<ProductViewModel> _productViewModels;
         public IEnumerable<ProductViewModel> ProductViewModels => _productViewModels;
         public MainWindow()
         {
             InitializeComponent();
-            //_dbConn = new DataClasses1DataContext(Properties.Settings.Default.PickShopDBConnectionString);
+            _dbConn = new DataClasses1DataContext(Properties.Settings.Default.PickShopDBConnectionString);
 
             _productViewModels = new ObservableCollection<ProductViewModel>()
             {
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\cherino.jpg","Tshirt", "Gucci replica", 100.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\Tesla.png","Honda Civic", "120,000km", 10000000.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\cherino.jpg","Alpha", "I dunno", 100.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\cherino.jpg","Torotot", "Bruh", 3000.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\image.png","Omega", "Test", 100.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\image.png", "Adult Item", "The d", 3000.00),
-                new ProductViewModel(@"C:\Users\22-0370c\source\repos\ItemsControl\ItemsControl\Background\image.png","Iphone 12 pro", "Used", 300.00)
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\image.png","Tshirt", "Gucci replica", 100.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\Tesla.png","Honda Civic", "120,000km", 10000000.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\image.png","Alpha", "I dunno", 100.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\gigachadd.png","Torotot", "Bruh", 3000.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\image.png","Omega", "Test", 100.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\image.png", "Adult Item", "The d", 3000.00),
+                new ProductViewModel(@"C:\Users\Aspera01\source\repos\TrueFinalsTerm\TrueFinalsTerm\Background\image.png","Iphone 12 pro", "Used", 300.00)
             };
 
             DataContext = this;
@@ -79,16 +80,60 @@ namespace TrueFinalsTerm
         {
             if (user_box.Text.Length > 0 && pass_box.Text.Length > 0)
             {
-                //flag = false;
-                //string messageString = "";
-                //IQueryable<Users> selectResults = from s in _dbConn.asda
-                //                                  where s.Users_Name.Trim() == user_box.Text
-                //                                  select s;
+                flag = false;
+                string messageString = "";
+                IQueryable<_User> selectResults = from s in _dbConn._Users
+                                                  where s.User_Name.Trim() == user_box.Text
+                                                  select s;
+                if (selectResults.Count() == 1)
+                {
+                    //MessageBox.Show("works");
+                    foreach (_User s in selectResults)
+                    {
+                        if (s.User_Pass.Trim() == pass_box.Text)
+                        {
+                            if (s.User_ID.Trim() == "U_1")
+                            {
+                                mode = false;
+                            }
+                            else if (s.User_ID.Trim() == "U_2")
+                            {
+                                mode = true;
+                            }
+
+                            if (!mode)
+                            {
+                                login.Visibility = Visibility.Collapsed;
+                                listedItems.Visibility = Visibility.Visible;
+                                messageString = s.User_Name + "\n" + s.User_Num + "\n" + s.User_Email + "\n" + s.User_ID;
+                                MessageBox.Show(messageString);
+                                break;
+                            }
+                            else
+                            {
+
+                                login.Visibility = Visibility.Collapsed;
+                                listedItems.Visibility = Visibility.Visible;
+                                messageString = s.User_Name + "\n" + s.User_Num + "\n" + s.User_Email + "\n" + s.User_ID;
+                                MessageBox.Show(messageString);
+                                break;
+                            }
+
+                        }
+                        else if (s.User_Pass.Trim() != pass_box.Text)
+                        {
+                            messageString = "Incorrect Password.\n" +
+                                "Try again!";
+                            MessageBox.Show(messageString);
+                        }
+                    }
+
+                }
             }
 
 
 
-            MessageBox.Show(user_box.Text + " " + pass_box.Text);
+            //MessageBox.Show(user_box.Text + " " + pass_box.Text);
         }
     }
 }
